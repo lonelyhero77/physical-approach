@@ -3,14 +3,14 @@ import matplotlib.pyplot as plt
 import sys
 
 #Variable Settings
-l = 1.1 # m
-g = 9.8 # m/s^2
+l = 1. #m
+g = 9.81 # m/s^2
 angvel0 = 0
-ang0 = 0.001
+ang0 = 10.
 
 # Time Settings
-tmax = 500.
-tstep = 0.001
+tmax = 10.
+tstep = 0.01
 t = np.linspace(0., tmax, int(tmax/tstep))
 
 X0 = np.array([ang0, angvel0])
@@ -25,7 +25,8 @@ def drawProgressBar(percent, barLen=20):
     sys.stdout.flush()
 
 def derivate(X, t):
-    return np.array([X[1], -g/l * np.sin(X[0])])
+    # Remember np.array needs Angle in radians!!!!
+    return np.array([X[1], -g/l * np.sin(X[0] * np.pi / 180.)])
 
 def Euler(func, X0, t):
     dt = t[1] - t[0]
